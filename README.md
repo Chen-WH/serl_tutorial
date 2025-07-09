@@ -20,12 +20,26 @@ SERL provides a set of libraries, env wrappers, and examples to train RL policie
 
 **Table of Contents**
 - [SERL: A Software Suite for Sample-Efficient Robotic Reinforcement Learning](#serl-a-software-suite-for-sample-efficient-robotic-reinforcement-learning)
+  - [Added content by ChenWH](#added-content-by-chenwh)
+  - [Major updates](#major-updates)
+      - [June 24, 2024](#june-24-2024)
+      - [April 25, 2024](#april-25-2024)
   - [Installation](#installation)
   - [Overview and Code Structure](#overview-and-code-structure)
   - [Quick Start with SERL in Sim](#quick-start-with-serl-in-sim)
   - [Run with Franka Arm on Real Robot](#run-with-franka-arm-on-real-robot)
   - [Contribution](#contribution)
   - [Citation](#citation)
+
+## Added content by ChenWH
+
+Added the ur10_sim simulation environment. To adapt to UR10's position controller, inverse kinematics + PD controller are used to replace the impedance controller mentioned in the original paper.
+
+```
+cd examples/async_drq_sim
+bash run_learner3.sh
+bash run_actor3.sh
+```
 
 ## Major updates
 #### June 24, 2024
