@@ -33,6 +33,43 @@ SERL provides a set of libraries, env wrappers, and examples to train RL policie
 
 ## Added content by ChenWH
 
+### Installation
+
+```shell
+conda create -n serl python=3.10
+pip install --upgrade "jax[cuda12_pip]==0.4.35" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+cd serl_launcher
+pip install -e .
+pip install -r requirements.txt
+```
+
+目前测试下来这些库版本需要手动指定
+
+```shell
+pip install --upgrade flax==0.8.5
+pip install --upgrade orbax-checkpoint==0.5.20
+pip install --upgrade wandb==0.17.2
+```
+
+有任何依赖版本不对可以联系ChenWH
+
+```shell
+cd ur10_sim
+pip install -e .
+pip install -r requirements.txt
+```
+
+在Python中测试jax
+
+```python
+import jax
+print("JAX devices:", jax.devices())
+```
+
+
+
+### UR10 sim
+
 Added the ur10_sim simulation environment. To adapt to UR10's position controller, inverse kinematics + PD controller are used to replace the impedance controller mentioned in the original paper.
 
 ```

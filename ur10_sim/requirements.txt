@@ -5,3 +5,7 @@ gymnasium==0.29.1
 dm-robotics-transformations
 imageio[ffmpeg]
 lxml
+qpsolvers
+spatialmath-python
+numpy-quaternion
+omegaconf
