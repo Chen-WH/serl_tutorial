@@ -33,7 +33,9 @@ SERL provides a set of libraries, env wrappers, and examples to train RL policie
 
 ## Added content by ChenWH
 
-### Installation
+因为原仓库缺少维护，安装教程已不具备参考性
+
+### Environment
 
 ```shell
 conda create -n serl python=3.10
@@ -53,11 +55,7 @@ pip install --upgrade wandb==0.17.2
 
 有任何依赖版本不对可以联系ChenWH
 
-```shell
-cd ur10_sim
-pip install -e .
-pip install -r requirements.txt
-```
+### Troubleshooting
 
 在Python中测试jax
 
@@ -66,13 +64,28 @@ import jax
 print("JAX devices:", jax.devices())
 ```
 
+如果输出 JAX devices: [CudaDevice(id=0)] 类似内容说明环境配置正确；如果遇到jax库相关报错可以参照下面网页安装cuda_local版 [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit-archive) [cuDNN](https://developer.nvidia.com/cudnn-archive)
 
+推荐安装cuda12.3和cudnn9.8，与 [Jax Installation](https://docs.jax.dev/en/latest/installation.html) 中的Built version一致（实测cuda12.4不兼容），而后安装jax[cuda12-local]
+
+```shell
+pip install --upgrade "jax[cuda12_local]==0.4.35"
+pip install --upgrade jaxlib==0.4.34
+```
 
 ### UR10 sim
 
-Added the ur10_sim simulation environment. To adapt to UR10's position controller, inverse kinematics + PD controller are used to replace the impedance controller mentioned in the original paper.
+代码框架可以参考原仓库和论文，这里只介绍改动部分，即ur10_sim文件夹，首先安装对应的 sim library
 
+```shell
+cd ur10_sim
+pip install -e .
+pip install -r requirements.txt
 ```
+
+ur10实机只有位置控制器，因此不能再使用文献中的阻抗控制器，ik逆运动学在ur10_sim/ur10_sim/utils中实现。通过mujoco的mj_jacBodyCom函数获取雅可比矩阵，迭代优化求解关节角度，理论上不同机器人只需要更换xml文件即可复用。对应examples/async_drq_sim/async_drq_sim3.py，在两个终端中分别运行run_learner3.sh和run_actor3.sh即可。
+
+```shell
 cd examples/async_drq_sim
 bash run_learner3.sh
 bash run_actor3.sh
